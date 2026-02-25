@@ -14,9 +14,10 @@
 		<table class="table" id="cards-table">
 			<thead>
 				<tr>
-					<th>ID</th>
-					<th>symbol</th>
-					<th>Price USD</th>
+					<th>Image</th>
+					<th>Name</th>
+					<th>Price (EUR)</th>
+					<th>Type</th>
 					<th>More info</th>
 				</tr>
 			</thead>
@@ -24,6 +25,32 @@
 				
 			</tbody>
 		</table>
+	</div>
+
+	<!-- Card details modal -->
+	<div class="modal fade" id="cardModal" tabindex="-1" aria-labelledby="cardModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="cardModalLabel">Card details</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+			<div id="card-title">
+				<!-- Populated dynamically -->
+			</div>
+				<div id="card-image">
+				<!-- Populated dynamically -->
+			</div>
+	        <div id="card-details">
+	          <!-- Populated dynamically -->
+	        </div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
 	</div>
 
 
