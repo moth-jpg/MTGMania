@@ -19,23 +19,43 @@
   </ul>
 </div>
 
-	<div class="container">
+	<div class="card col-md-8 mx-auto">
 		<table class="table" id="cards-table">
 			<thead>
 				<tr>
-					<td>Image</th>
+					<th>Image</th>
 					<th>Name</th>
+					<th>ID</th>
 					<th>Price (EUR)</th>
 					<th>Type</th>
 					<th>More info</th>
 				</tr>
 			</thead>
 			<tbody>
-				
+			
 			</tbody>
 		</table>
 	</div>
 
+	<template id="card-row-template">
+				{{#data}}
+					<tr>						
+						<td><img src="{{image_uris.small}}" alt="{{name}}" width="100"></td>
+						<td>{{name}}</td>
+						<td>{{id}}</td>
+						<td>{{prices.eur}}</td>
+						<td>{{type_line}}</td>
+						<td>   <button class="btn btn-primary card-info-btn" 
+									data-bs-toggle="modal" 
+									data-bs-target="#cardModal"
+									data-card-id="{{id}}">
+									More Info
+							</button>
+</td>
+						
+					</tr>	
+				{{/data}}
+				</template>
 	<!-- Card details modal -->
 	<div class="modal fade" id="cardModal" tabindex="-1" aria-labelledby="cardModalLabel" aria-hidden="true">
 	  <div class="modal-dialog modal-lg">
@@ -90,8 +110,10 @@
 	
 	<!-- Bootstrap -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
+	
+	<!-- Mustache.js for templating -->
+	<script src="https://cdn.jsdelivr.net/npm/mustache@4.1.0/mustache.min.js"></script>
     <!-- Custom js  -->
-    <script src="js/main.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
