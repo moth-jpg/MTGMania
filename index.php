@@ -27,6 +27,9 @@
 				<li class="nav-item">
 				<a class="nav-link" data-tab="StrixHaven" href="#">Strixhaven</a>
 			</li>
+				<li class="nav-item">
+				<a class="nav-link" data-tab="Innistrad" href="#">Innistrad</a>
+			</li>
 		</ul>
 		<table class="table" id="cards-table">
 			<thead>

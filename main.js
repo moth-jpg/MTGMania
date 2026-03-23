@@ -22,6 +22,9 @@ $('.nav-link').on('click', function (e) {
     else if (tab === 'StrixHaven') {
         getAllStrixHavenCards(); 
     }
+     else if (tab === 'Innistrad') {
+        getAllInnistradCards(); 
+    }
 });
 
 // GET ALL FINAL FANTASY CARDS
@@ -102,6 +105,24 @@ function getAllStrixHavenCards() {
         type: "GET",
         dataType: "json",
         url: "https://api.scryfall.com/cards/search?q=set:sta&order=set",
+        success: function (data) {
+            console.log(data.data);
+            var template = $("#card-row-template").html();
+            var renderTemplate = Mustache.render(template, data);
+            $("#cards-table tbody").append(renderTemplate);
+        },
+        error: function (err) {
+            console.error("Error loading all cards:", err);
+        }
+    });
+}
+
+// GET ALL Innistrad CARDS
+function getAllInnistradCards() { 
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "https://api.scryfall.com/cards/search?q=set:inr&order=set",
         success: function (data) {
             console.log(data.data);
             var template = $("#card-row-template").html();
