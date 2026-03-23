@@ -9,23 +9,31 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
-<div class="dropdown" data-bs-theme="light">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonLight" data-bs-toggle="dropdown" aria-expanded="false">
-    Default dropdown
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButtonLight">
-    <li><a class="dropdown-item active" href="#">Final Fantasy</a></li>
-    <li><a class="dropdown-item" href="#">Lowryn Eclipsed</a></li>
-  </ul>
-</div>
-
 	<div class="card col-md-8 mx-auto">
+		<ul class="nav nav-tabs">
+			<li class="nav-item">
+				<a class="nav-link active" aria-current="page" data-tab="finalfantasy" href="">Final Fantasy</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" data-tab="lowryn" href="#">Lowryn Eclipsed</a>
+			</li>
+				<li class="nav-item">
+				<a class="nav-link" data-tab="EdgeOfEternities" href="#">Edge of Eternities</a>
+			</li>
+				<li class="nav-item">
+				<a class="nav-link" data-tab="BloomBurrow" href="#">Bloom Burrow</a>
+			</li>
+			</li>
+				<li class="nav-item">
+				<a class="nav-link" data-tab="StrixHaven" href="#">Strixhaven</a>
+			</li>
+		</ul>
 		<table class="table" id="cards-table">
 			<thead>
 				<tr>
 					<th>Image</th>
 					<th>Name</th>
-					<th>ID</th>
+					<th hidden>ID</th>
 					<th>Price (EUR)</th>
 					<th>Type</th>
 					<th>More info</th>
@@ -42,7 +50,7 @@
 					<tr>						
 						<td><img src="{{image_uris.small}}" alt="{{name}}" width="100"></td>
 						<td>{{name}}</td>
-						<td>{{id}}</td>
+						<td hidden>{{id}}</td>
 						<td>{{prices.eur}}</td>
 						<td>{{type_line}}</td>
 						<td>   <button class="btn btn-primary card-info-btn" 
@@ -51,8 +59,7 @@
 									data-card-id="{{id}}">
 									More Info
 							</button>
-</td>
-						
+						</td>						
 					</tr>	
 				{{/data}}
 				</template>
@@ -80,7 +87,7 @@
 				<!-- Populated dynamically -->
 				</div>
 			</br>
-				<canvas id="priceChart" width="400" height="200">
+				<canvas id="priceChart">
 					<!-- Price history chart will be rendered here -->
 				</canvas>
 			</br>
@@ -97,13 +104,6 @@
 	    </div>
 	  </div>
 	</div>
-	<!-- Change page -->
-	<div id="pagination" style="margin-top: 20px; text-align: center;">
-		<button id="prev-page" class="btn btn-secondary" disabled>Previous</button>
-		<span id="page-info">Page 1 of ?</span>
-		<button id="next-page" class="btn btn-secondary">Next</button>
-	</div>
-
 
 	<!-- jQuery -->
 	<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
@@ -113,6 +113,9 @@
 	
 	<!-- Mustache.js for templating -->
 	<script src="https://cdn.jsdelivr.net/npm/mustache@4.1.0/mustache.min.js"></script>
+	
+	<!-- Chart.js for price history charts -->
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Custom js  -->
     <script src="main.js"></script>
 </body>

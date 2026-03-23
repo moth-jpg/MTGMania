@@ -1,61 +1,201 @@
-//get all cards
-function getAllCards() { 
-   
+//LOGIC FOR CHANGING TABS AND LOADING CARDS
+$('.nav-link').on('click', function (e) {
+    e.preventDefault();
+    const tab = $(this).data('tab');
+    // switch active class
+    $('.nav-link').removeClass('active');
+    $(this).addClass('active');
+    // clear table
+    $("#cards-table tbody").empty();
+
+    if (tab === 'finalfantasy') {
+        getAllFFCards();
+    } else if (tab === 'lowryn') {
+        getAllLowrynCards(); 
+    }
+    else if (tab === 'EdgeOfEternities') {
+        getAllEdgeOfEternitiesCards(); 
+    }
+    else if (tab === 'BloomBurrow') {
+        getAllBloomBurrowCards(); 
+    }
+    else if (tab === 'StrixHaven') {
+        getAllStrixHavenCards(); 
+    }
+});
+
+// GET ALL FINAL FANTASY CARDS
+function getAllFFCards() { 
     $.ajax({
         type: "GET",
         dataType: "json",
         url: "https://api.scryfall.com/cards/search?q=set:fin&order=set",
         success: function (data) {
             console.log(data.data);
-            // cards = data;
             var template = $("#card-row-template").html();
             var renderTemplate = Mustache.render(template, data);
             $("#cards-table tbody").append(renderTemplate);
+        },
+        error: function (err) {
+            console.error("Error loading all cards:", err);
         }
     });
 }
 
-//function to get a single card
+// GET ALL Lowryn Eclipsed CARDS
+function getAllLowrynCards() { 
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "https://api.scryfall.com/cards/search?q=set:ecl&order=set",
+        success: function (data) {
+            console.log(data.data);
+            var template = $("#card-row-template").html();
+            var renderTemplate = Mustache.render(template, data);
+            $("#cards-table tbody").append(renderTemplate);
+        },
+        error: function (err) {
+            console.error("Error loading all cards:", err);
+        }
+    });
+}
+
+// GET ALL Lowryn Eclipsed CARDS
+function getAllEdgeOfEternitiesCards() { 
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "https://api.scryfall.com/cards/search?q=set:eoe&order=set",
+        success: function (data) {
+            console.log(data.data);
+            var template = $("#card-row-template").html();
+            var renderTemplate = Mustache.render(template, data);
+            $("#cards-table tbody").append(renderTemplate);
+        },
+        error: function (err) {
+            console.error("Error loading all cards:", err);
+        }
+    });
+}
+
+// GET ALL Bloom Burrow CARDS
+function getAllBloomBurrowCards() { 
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "https://api.scryfall.com/cards/search?q=set:blb&order=set",
+        success: function (data) {
+            console.log(data.data);
+            var template = $("#card-row-template").html();
+            var renderTemplate = Mustache.render(template, data);
+            $("#cards-table tbody").append(renderTemplate);
+        },
+        error: function (err) {
+            console.error("Error loading all cards:", err);
+        }
+    });
+}
+
+// GET ALL Strixhaven CARDS
+function getAllStrixHavenCards() { 
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "https://api.scryfall.com/cards/search?q=set:sta&order=set",
+        success: function (data) {
+            console.log(data.data);
+            var template = $("#card-row-template").html();
+            var renderTemplate = Mustache.render(template, data);
+            $("#cards-table tbody").append(renderTemplate);
+        },
+        error: function (err) {
+            console.error("Error loading all cards:", err);
+        }
+    });
+}
+
+// GET SINGLE CARD
 function getCard(selectedButton) {
     var $button = $(selectedButton);
     var cardId = $button.data("card-id");
-    //var selectedCardId = $(selectedButton).closest("tr").find(".card-id").text();
 
     $.ajax({
         type: "GET",
         dataType: "json",
-        type: "GET",
-    	url: "https://api.scryfall.com/cards/" + cardId,
-
+        url: "https://api.scryfall.com/cards/" + cardId,
         success: function (singleCard) {
-            console.log("Card loaded:", singleCard.name);
-            $("#card-title").html('' + singleCard.name + '' );
-            $("#card-image").html('<img src="' + (singleCard.image_uris.small || '') + '" alt="Card Image">');
-            $("#card-type").html('' + singleCard.type_line + '' );
-            $("#card-details").html('' + singleCard.oracle_text + '' );
-            $("#card-purchase-TCGplayer").html('<a href="' + singleCard.purchase_uris.tcgplayer + '" target="_blank">- TCGplayer</a>');
-            $("#card-purchase-Cardhoarder").html('<a href="' + singleCard.purchase_uris.cardhoarder + '" target="_blank">- Cardhoarder</a>');
-           // const ApiUrl = "https://api.justtcg.com/v1/cards?scryfallId=" + singleCard.id + "&include_price_history=true&price_history_duration=90d&api_key=tcg_7565ff92f20e40b3b3f168b705e929a2";
-		}        
+            $("#card-title").html(singleCard.name);
+            $("#card-image").html('<img src="' + (singleCard.image_uris?.small || '') + '">');
+            $("#card-type").html(singleCard.type_line);
+            $("#card-details").html(singleCard.oracle_text);
+            $("#card-purchase-TCGplayer").html('<a href="' + singleCard.purchase_uris?.tcgplayer + '" target="_blank">TCGplayer</a>');
+            $("#card-purchase-Cardhoarder").html('<a href="' + singleCard.purchase_uris?.cardhoarder + '" target="_blank">Cardhoarder</a>');
+            
+            getChartInfo(singleCard); // unified
+        }   
     });
-
-    // STEP 3: When the request is successful
-    // - Access the returned object (coin)
-    // - Go to coin.data
-    // - Get:
-    //     coin.data.name
-    //     coin.data.supply
-    // - Append (add) the name and supply to the modal
-    // - Show the modal (if needed)
 }
 
+// GET CHART DATA
+function getChartInfo(singleCard) {
+           // ----------------------------
+            // GET CHART DATA
+            // ----------------------------
+           const currentPrice = parseFloat(singleCard.prices.eur) || 1;
+            // generate fake history (last 30 days)
+            const dateArray = [];
+            const priceArray = [];
 
+            for (let i = 7; i >= 0; i--) {
+            const date = new Date();
+            date.setDate(date.getDate() - i);
+
+            dateArray.push(date.toISOString().split('T')[0]);
+
+            // small random variation
+            const variation = (Math.random() - 0.5) * 0.5;
+            priceArray.push((currentPrice + variation).toFixed(2));
+        }
+        generateChart(dateArray, priceArray);
+}
+
+// GENERATE CHART
+function generateChart(dateArray, priceArray){
+    const ctx = document.getElementById('priceChart').getContext('2d');
+
+    // Destroy old chart if exists
+    if (window.priceChartInstance) {
+        window.priceChartInstance.destroy();
+    }
+
+    window.priceChartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: dateArray,
+            datasets: [{
+                label: "Price",
+                data: priceArray,
+                borderColor: '#3e95cd',
+                fill: false,
+                tension: 0.1,
+                pointRadius: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { display: true } },
+            scales: {
+                x: { type: 'category', title: { display: true, text: 'Date' } },
+                y: { type: 'linear', title: { display: true, text: 'Price' } }
+            }
+        }
+    });
+}
+
+// DOCUMENT READY
 $(document).ready(function () {
-	//load all coins @ loading
-	getAllCards();
-	//On click to get a single coin
-	$("#cards-table").on("click", ".card-info-btn", function () {	
-		getCard(this);
-	});
-});
-
+    getAllFFCards(); // ONLY load one set by default
+    $("#cards-table").on("click", ".card-info-btn", function () {    
+        getCard(this); 
+    });
+})
