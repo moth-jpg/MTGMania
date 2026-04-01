@@ -96,12 +96,6 @@
 
 
 
-
-
-
-
-
-
 	<!-- Card details modal -->
 	<div class="modal fade" id="cardModal" tabindex="-1" aria-labelledby="cardModalLabel" aria-hidden="true">
 	  <div class="modal-dialog modal-lg">
