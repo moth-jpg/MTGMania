@@ -11,28 +11,16 @@
 
 </head>
 <body>
-
-	<div class="container">
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<div class="container-fluid">
-				<a class="navbar-brand" href="#">Cryptomania</a>
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarNav">
-				<ul class="navbar-nav">
-					<li class="nav-item">
-						<a class="nav-link active" href="index.php">Home</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="cryptoportfolio.php">Crypto portfolio</a>
-					</li>
-				</ul>
-				</div>
-			</div>
-		</nav>
-
-
+	<!-- NAVBAR TOP OF PAGE-->
+	<div class="card col-md-8 mx-auto">
+		<ul class="nav nav-tabs">
+			<li class="nav-item">
+				<a class="nav-link" href="index.php">Home</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link active" href="cryptoportfolio.php">Crypto portfolio</a>
+			</li>
+		</ul>
 		<table class="table" id="magic-folio-table">
 			<thead>
 				<tr>
@@ -40,15 +28,13 @@
 					<th>Bought on</th>
 					<th>Name</th>
 					<th>Price</th>
-					<th>Amount</th>
-					
+					<th>Amount</th>					
 					<th>Total</th>
 					<th>Save</th>
 					<th>Delete</th>
 				</tr>
 			</thead>
 			<tbody>
-
 			</tbody>
 			<tfoot>
 				<tr>
@@ -72,7 +58,7 @@
 				<td>{{bought_on}}</td>
 				<td>{{name}}</td>
 				<td >{{price}}</td>
-				<td><input type="number" value="{{amount}}" class="amount-input" /></td>
+				<td><input type="number" value="{{amount}}" class="amount-input" min="0" /></td>
 				<td class="price-total">{{totalValue}}</td>
 				<td><button type="button" class="btn btn-warning save-card-btn" value="{{id}}">Save</button></td>
 				<td><button type="button" class="btn btn-danger" value="{{id}}">Delete</button></td>

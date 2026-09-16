@@ -9,7 +9,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
-
+	<!-- NAVBAR TOP OF PAGE-->
 	<div class="card col-md-8 mx-auto">
 		<ul class="nav nav-tabs">
 			<li class="nav-item">
@@ -32,7 +32,13 @@
 						<a class="nav-link" data-tab="Innistrad">Innistrad</a>
 					</li>
 					<li class="nav-item">
-						<a  href="cryptoportfolio.php">Crypto portfolio</a>
+						<a class="nav-link" href="cryptoportfolio.php">Crypto portfolio</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="cryptoNews.php">Crypto News</a>	
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="exchange.php">Exchange</a>
 					</li>
 		</ul>
 		<table class="table" id="cards-table">
@@ -42,6 +48,7 @@
 					<th>Name</th>
 					<th hidden>ID</th>
 					<th>Price (EUR)</th>
+					<th>Price (USD)</th>	
 					<th>Type</th>
 					<th>More info</th>
 					<th>Add to Wallet</th>
@@ -53,6 +60,8 @@
 		</table>
 	</div>
 
+	<!-- TEMPLATE FOR CARD ROWS
+	 	SHOWING ALL THE DATA -->
 	<template id="card-row-template">
 		{{#data}}
 			<tr>						
@@ -60,6 +69,7 @@
 				<td class="card-name">{{name}}</td>
 				<td hidden>{{id}}</td>
 				<td class="card-price">{{prices.eur}}</td>
+				<td>{{prices.usd}}</td>
 				<td>{{type_line}}</td>
 				<td>   <button class="btn btn-primary card-info-btn" 
 							data-bs-toggle="modal" 
@@ -80,6 +90,8 @@
 		{{/data}}
 	</template>
 
+	<!-- TEMPLATE FOR MAGICFOLIO PAGE
+	 	SHOWING ALL THE DATA -->
 	<template id="cards-magicfolio-template">
 		{{.}}
 			<tr>
@@ -94,9 +106,7 @@
 		{{/.}}
 	</template>
 
-
-
-	<!-- Card details modal -->
+	<!-- CARD MODAL TO SHOW SINGLE CARD DETAILS -->
 	<div class="modal fade" id="cardModal" tabindex="-1" aria-labelledby="cardModalLabel" aria-hidden="true">
 	  <div class="modal-dialog modal-lg">
 	    <div class="modal-content">
@@ -139,7 +149,7 @@
 	</div>
 
 
-	<!-- Card details modal -->
+	<!-- CARD MODAL TO SHOW DETAILS  -->
 	<div class="modal fade" id="cardModalWallet" tabindex="-1" aria-labelledby="cardModalLabel" aria-hidden="true">
 	  <div class="modal-dialog modal-lg">
 	    <div class="modal-content">
@@ -156,7 +166,7 @@
 	  </div>
 	</div>
 
-	<!-- Modal -->
+	<!-- CRYPTOFOLIO MODAL TEMPLATE -->
 	<template id="cryptofolio-modal-template">
 		<div class="modal-header">
 			<h5 class="modal-title">
@@ -167,7 +177,7 @@
 		<div class="modal-body">
 			Current price $ <span id="modal-card-price">{{cardPrice}}</span>
 			<br />
-			Amount: <input type="number" id="modal-amount-cards" value="1">
+			Amount: <input type="number" id="modal-amount-cards" value="1" min="0">
 			<br />
 			Total: <span id="modal-total-value">{{cardPrice}}</span>
 			<br />
